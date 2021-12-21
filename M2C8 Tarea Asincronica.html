@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</head>
+<style type="text/css">
+
+    *{box-sizing: border-box;}
+    body{
+        padding: 80px;
+    }
+    header{
+        text-align: center;
+        padding-bottom: 20px;}
+
+</style>
+
+<body>
+    <div class="container-fluid p-5 bg-secondary text-white text-center">
+        <h1> BODEGA DE JUAN </h1>
+    </div>
+
+  <section>
+    <div class="input-group mb-3">
+
+        <input type="text" name="num" id="num" placeholder="ITEM" class="form-control">
+        <input type="text" name="num2" id="num2" placeholder="FAMILIA" class="form-control">
+        <input type="text" name="num3" id="num3" placeholder="VALOR"class="form-control">
+        <input type="text" name="num4" id="num4" placeholder="CANTIDAD"class="form-control">
+        <button onclick="agregar();"class="btn btn-outline-primary">agregar</button><br><br>
+
+    </div>
+
+    
+
+    <table id="lista" class="table table-striped table-hover" style=" margin: 0 auto; text-align: center;">
+    </table><br><br>
+    
+    <h2>Total del inventario</h2><br>
+
+    <button onclick="agregar5();">Total del Inventario</button><br><br>
+    <div id="total" class="alert alert-secondary" role="alert">
+     Revise su total de inventario acá
+    </div><br><br>
+   
+
+        <h2>Total Valor Existencias</h2><br><br>
+    <button onclick="agregar6();">Valor Existencias</button><br>
+   
+    <div id="total2" class="alert alert-secondary" role="alert">
+     Neto
+    </div>
+    <div id="iva" class="alert alert-secondary" role="alert">
+         Iva
+        </div>
+        <div id="total1" class="alert alert-secondary" role="alert">
+         Total
+        </div>
+    </section>
+
+    <script type="text/javascript">
+        let nomina=[];
+        let nomina2=[];
+        let nomina3=[];
+        let nomina4=[];
+        function agregar(){
+            let v1=document.getElementById("num").value;
+            let v2=document.getElementById("num2").value;
+            let v3=document.getElementById("num3").value;
+            let v4=document.getElementById("num4").value;
+            nomina.push(v1);
+            nomina2.push(v2);
+            nomina3.push(v3);
+            nomina4.push(v4);
+            document.getElementById("num").value="";        
+            document.getElementById("num2").value="";    
+            document.getElementById("num3").value="";            
+            document.getElementById("num4").value="";
+            mostrar();
+           }
+       
+        function mostrar(){
+            let fragmento="";
+            fragmento="<table border='1'>";
+            fragmento+="<tr>";
+            fragmento+="<td>Item</td>";
+            fragmento+="<td>Familia</td>";
+            fragmento+="<td>Valor</td>";
+            fragmento+="<td>Cantidad</td>";
+            fragmento+="</tr>";
+            for(var i=0; i < nomina.length; i++){
+                fragmento+="<tr>";
+                fragmento+="<td>"+nomina[i]+"</td>";
+                fragmento+="<td>"+nomina2[i]+"</td>";
+                fragmento+="<td>"+nomina3[i]+"</td>";
+                fragmento+="<td>"+nomina4[i]+"</td>";
+                fragmento+="</tr>";
+            }
+            fragmento+="</table>";
+            document.getElementById('lista').innerHTML=fragmento;
+    }
+         function agregar5(){
+          let v4=document.getElementById("num4").value;
+          let acum=0;
+          for(var i=0; i<nomina4.length; i++){
+            acum=acum+parseInt(nomina4[i]);
+          }document.getElementById('total').innerHTML=acum+" productos";
+
+        }
+        function agregar6(){
+            let v3=document.getElementById("num3").value;
+            let v4=document.getElementById("num4").value;
+            let ivaa=document.getElementById("iva").value;
+            let totall=document.getElementById("total1").value;
+            let acum=0;
+            for(var i=0; i<nomina4.length; i++){
+            acum=acum+parseInt(nomina4[i])*parseInt(nomina3[i]);
+            ivaa=acum*0.19;
+            totall=acum*1.19;
+            
+          }document.getElementById('total2').innerHTML="Neto"+"$ "+acum+".-";
+          document.getElementById('iva').innerHTML="Iva "+"$"+ivaa+".-";
+          document.getElementById('total1').innerHTML="Total "+"$"+totall+".-";
+
+        }
+    </script>
+</body>
+</html>
